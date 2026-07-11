@@ -1,4 +1,4 @@
-package com.example.glucoserecordbook.ui
+﻿package com.example.glucoserecordbook.ui
 
 
 import androidx.compose.foundation.layout.offset
@@ -94,7 +94,7 @@ private fun HomeScreen(viewModel: RecordViewModel, modifier: Modifier = Modifier
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-            Text("Glucose Record Book", style = androidx.compose.material3.MaterialTheme.typography.headlineLarge)
+            Text("Glucose Records Tracker", style = androidx.compose.material3.MaterialTheme.typography.headlineLarge)
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(if (state.date == today) "TODAY" else "SELECTED DAY", style = androidx.compose.material3.MaterialTheme.typography.labelLarge, color = androidx.compose.material3.MaterialTheme.colorScheme.primary)
                 Text(state.date.format(fullDateFormatter), style = androidx.compose.material3.MaterialTheme.typography.titleLarge)
@@ -199,7 +199,7 @@ private fun DateNavigationBar(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 CompactDateButton(
-                    label = "‹ Previous",
+                    label = "â€¹ Previous",
                     onClick = onPrevious,
                     modifier = Modifier.weight(1f)
                 )
@@ -213,7 +213,7 @@ private fun DateNavigationBar(
 
                 if (date.isBefore(today)) {
                     CompactDateButton(
-                        label = "Next ›",
+                        label = "Next â€º",
                         onClick = onNext,
                         modifier = Modifier.weight(1f)
                     )
@@ -499,7 +499,7 @@ private fun NumericKeypad(onDigit: (Int) -> Unit, onBackspace: () -> Unit, onDas
                 onClick = onBackspace,
                 enabled = enabled,
                 modifier = Modifier.weight(1f).height(72.dp).semantics { contentDescription = "Delete last digit" }
-            ) { Text("⌫", fontSize = 34.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) }
+            ) { Text("âŒ«", fontSize = 34.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) }
             Button(onClick = { onDigit(0) }, enabled = enabled, modifier = Modifier.weight(1f).height(72.dp)) { Text("0") }
             OutlinedButton(
                 onClick = onDash,
@@ -579,3 +579,4 @@ private fun HistoryDateCard(date: LocalDate, readings: List<Reading>) {
         }
     }
 }
+

@@ -1,12 +1,12 @@
-# Glucose Record Book
+﻿# Glucose Records Tracker
 
-Glucose Record Book is a simple, offline-first Android app for recording daily blood glucose readings and viewing them in a clear chronological history.
+Glucose Records Tracker is a simple, offline-first Android app for recording daily blood glucose readings and viewing them in a clear chronological history.
 
 The project began with a real usability problem: my 81-year-old grandfather was recording his blood glucose readings by hand on paper. I wanted to build a digital alternative that remained simple enough to use without introducing accounts, complicated menus, unnecessary features, or medical interpretation.
 
 The result is a focused digital record book designed around ease of use, readability, and privacy.
 
-> **Important:** Glucose Record Book is a record-keeping tool only. It does not provide medical advice, diagnose conditions, interpret glucose values, or replace guidance from a qualified healthcare professional.
+> **Important:** Glucose Records Tracker is a record-keeping tool only. It does not provide medical advice, diagnose conditions, interpret glucose values, or replace guidance from a qualified healthcare professional.
 
 ## Features
 
@@ -17,7 +17,7 @@ The result is a focused digital record book designed around ease of use, readabi
   - 2 Hours After Dinner
 - Large, readable cards for daily readings
 - Custom numeric keypad with no QWERTY keyboard required
-- Support for marking a reading as `—` when it was not taken
+- Support for marking a reading as `â€”` when it was not taken
 - Clear visual indication of the next unrecorded reading
 - Edit existing records
 - Confirmation before deleting a record
@@ -46,11 +46,11 @@ Design decisions include:
 - Explicit confirmation for destructive actions
 - A focused workflow with no medical dashboards or unnecessary statistics
 
-The aim is not to build a full diabetes-management platform. It is to make one everyday task—recording readings—simpler.
+The aim is not to build a full diabetes-management platform. It is to make one everyday taskâ€”recording readingsâ€”simpler.
 
 ## Privacy
 
-Glucose Record Book is currently local-only.
+Glucose Records Tracker is currently local-only.
 
 Records are stored on the device using a Room database. The app does not require an account and does not send readings to a server.
 
@@ -81,9 +81,9 @@ Each day can contain one record for each reading category.
 
 A reading can be:
 
-- **Recorded** — contains a numeric glucose value
-- **Skipped** — explicitly marked with `—`
-- **Empty** — no record has been entered yet
+- **Recorded** â€” contains a numeric glucose value
+- **Skipped** â€” explicitly marked with `â€”`
+- **Empty** â€” no record has been entered yet
 
 The Room database enforces one record per date/category combination using a unique index.
 
@@ -130,14 +130,14 @@ app/build/outputs/apk/debug/
 
 ```text
 app/
-├── schemas/                         Room database schemas
-└── src/
-    ├── main/
-    │   ├── java/.../data/           Entity, DAO, database, migrations, repository
-    │   ├── java/.../ui/             ViewModel, input logic, and Compose UI
-    │   └── res/                     App icon and Android resources
-    ├── test/                        Local unit tests
-    └── androidTest/                 Instrumented and Room repository tests
+â”œâ”€â”€ schemas/                         Room database schemas
+â””â”€â”€ src/
+    â”œâ”€â”€ main/
+    â”‚   â”œâ”€â”€ java/.../data/           Entity, DAO, database, migrations, repository
+    â”‚   â”œâ”€â”€ java/.../ui/             ViewModel, input logic, and Compose UI
+    â”‚   â””â”€â”€ res/                     App icon and Android resources
+    â”œâ”€â”€ test/                        Local unit tests
+    â””â”€â”€ androidTest/                 Instrumented and Room repository tests
 ```
 
 ## Testing
