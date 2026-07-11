@@ -128,6 +128,7 @@ app/build/outputs/apk/debug/
 
 ## Project structure
 
+```text
 app/
 |-- schemas/                 Room database schemas
 |-- src/
@@ -137,7 +138,7 @@ app/
 |   |   `-- res/             App icon and Android resources
 |   |-- test/                Local unit tests
 |   `-- androidTest/         Instrumented and Room repository tests
-
+```
 ## Testing
 
 The project includes tests for core record-entry and persistence behaviour, including reading completion logic and repository operations.
