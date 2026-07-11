@@ -128,17 +128,15 @@ app/build/outputs/apk/debug/
 
 ## Project structure
 
-```text
 app/
-â”œâ”€â”€ schemas/                         Room database schemas
-â””â”€â”€ src/
-    â”œâ”€â”€ main/
-    â”‚   â”œâ”€â”€ java/.../data/           Entity, DAO, database, migrations, repository
-    â”‚   â”œâ”€â”€ java/.../ui/             ViewModel, input logic, and Compose UI
-    â”‚   â””â”€â”€ res/                     App icon and Android resources
-    â”œâ”€â”€ test/                        Local unit tests
-    â””â”€â”€ androidTest/                 Instrumented and Room repository tests
-```
+|-- schemas/                 Room database schemas
+|-- src/
+|   |-- main/
+|   |   |-- java/.../data/   Entity, DAO, database, migrations, repository
+|   |   |-- java/.../ui/     ViewModel, input logic, and Compose UI
+|   |   `-- res/             App icon and Android resources
+|   |-- test/                Local unit tests
+|   `-- androidTest/         Instrumented and Room repository tests
 
 ## Testing
 
