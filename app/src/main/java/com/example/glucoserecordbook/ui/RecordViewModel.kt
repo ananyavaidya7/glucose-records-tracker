@@ -60,6 +60,9 @@ class RecordViewModel(private val repository: ReadingRepository) : ViewModel() {
     fun today() = showDate(LocalDate.now())
     fun showHistory() { _screen.value = Screen.History }
     fun showHome() { _screen.value = Screen.Home }
+    fun showMessage(message: String) {
+        viewModelScope.launch { _messages.emit(message) }
+    }
 
     fun beginEntry(type: ReadingType) {
         val existing = home.value.readings[type]

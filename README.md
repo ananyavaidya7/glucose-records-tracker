@@ -25,6 +25,7 @@ The result is a focused digital record book designed around ease of use, readabi
 - Choose a specific past date using the Android date picker
 - Date-grouped record history, newest first
 - Fully offline local storage
+- Export all records as a date-grouped PDF using Android's save-document picker
 - No account required
 - No network access
 - No analytics
@@ -62,7 +63,7 @@ The current version does not include:
 - Remote data collection
 - Medical interpretation
 
-Because records are stored locally, uninstalling the app or clearing its application data may delete stored records. Export and backup functionality are planned future improvements.
+Because records are stored locally, uninstalling the app or clearing its application data may delete stored records. Use the PDF export on the Records screen to retain a readable copy.
 
 ## Technology
 
@@ -151,7 +152,7 @@ The current release is intentionally focused and local-only.
 
 It does not currently provide:
 
-- Export to CSV or PDF
+- Export to CSV
 - Automatic backups
 - Cloud synchronization
 - Multiple user profiles
@@ -166,7 +167,7 @@ These limitations are deliberate unless a feature can be added without compromis
 Potential future improvements include:
 
 - CSV export and local backup
-- Doctor-friendly PDF export
+- Doctor-friendly PDF export refinements
 - Improved support for large Android font scaling
 - Additional accessibility testing across devices
 - Improved automated test coverage

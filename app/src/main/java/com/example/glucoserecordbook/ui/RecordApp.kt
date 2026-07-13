@@ -9,6 +9,8 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import android.app.DatePickerDialog
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,6 +43,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,7 +62,11 @@ import com.example.glucoserecordbook.data.Reading
 import com.example.glucoserecordbook.data.ReadingStatus
 import com.example.glucoserecordbook.data.ReadingType
 import com.example.glucoserecordbook.data.nextUnresolved
+import com.example.glucoserecordbook.export.GlucosePdfExporter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -540,6 +547,23 @@ private fun DeleteConfirmation(reading: Reading, onKeep: () -> Unit, onRemove: (
 @Composable
 private fun HistoryScreen(viewModel: RecordViewModel, modifier: Modifier = Modifier) {
     val history by viewModel.history.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var pendingExport by remember { mutableStateOf<Map<LocalDate, List<Reading>>?>(null) }
+    val savePdf = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/pdf")) { uri ->
+        val export = pendingExport
+        pendingExport = null
+        if (uri == null || export == null) return@rememberLauncherForActivityResult
+        scope.launch {
+            val message = try {
+                withContext(Dispatchers.IO) { GlucosePdfExporter.write(context.contentResolver, uri, export) }
+                "PDF saved"
+            } catch (_: Exception) {
+                "Could not save the PDF"
+            }
+            viewModel.showMessage(message)
+        }
+    }
     Column(modifier = modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 16.dp)) {
         Text("Records", style = androidx.compose.material3.MaterialTheme.typography.headlineLarge)
         Text("Newest dates first", style = androidx.compose.material3.MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(top = 4.dp, bottom = 14.dp))
@@ -551,6 +575,15 @@ private fun HistoryScreen(viewModel: RecordViewModel, modifier: Modifier = Modif
                 items(history.entries.toList(), key = { it.key.toEpochDay() }) { (date, readings) -> HistoryDateCard(date, readings) }
             }
         }
+        OutlinedButton(
+            onClick = {
+                pendingExport = history.mapValues { (_, readings) -> readings.toList() }
+                savePdf.launch("glucose-records-${LocalDate.now()}.pdf")
+            },
+            enabled = history.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth().height(68.dp)
+        ) { Text("EXPORT PDF") }
+        Spacer(Modifier.height(12.dp))
         Button(onClick = viewModel::showHome, modifier = Modifier.fillMaxWidth().height(76.dp)) { Text("BACK TO LOG") }
     }
 }
